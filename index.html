@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aldeídos</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      color: #073B4C;
+      padding: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(148, 210, 189, 0.6);
+      border-radius: 50%;
+      animation: float 6s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-10px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #005F73;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #005F73, #0A9396);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #0A9396;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .intro-card {
+      background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+      padding: 13px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      border-left: 5px solid #0A9396;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-card h2 {
+      color: #005F73;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+
+    .intro-card p {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .learning-path {
+      margin-bottom: 40px;
+    }
+
+    .path-title {
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      color: #005F73;
+      font-size: 1.7rem;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .path-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      margin: 10px auto;
+      border-radius: 2px;
+    }
+
+    .learning-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .learning-card {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-radius: 15px;
+      padding: 25px;
+      border: 3px solid #E9D8A6;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .dicas {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      gap: 8px;
+
+      & strong {
+        color: #073B4C;
+      }
+    }
+
+    .learning-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(148, 210, 189, 0.3), transparent);
+      transition: left 0.8s;
+    }
+
+    .learning-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border-color: #0A9396;
+    }
+
+    .learning-card:hover::before {
+      left: 100%;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-right: 15px;
+      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      color: #005F73;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .card-level {
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .card-description {
+      color: #073B4C;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .card-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    .card-features li {
+      padding: 5px 0;
+      color: #0A9396;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .card-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .card-button {
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 4px 15px rgba(10, 147, 150, 0.3);
+    }
+
+    .card-button:hover {
+      background: linear-gradient(135deg, #94D2BD, #B8E6D3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(10, 147, 150, 0.4);
+    }
+
+    .card-button.quiz {
+      background: linear-gradient(135deg, #9B2226, #BB3E03);
+      box-shadow: 0 4px 15px rgba(155, 34, 38, 0.3);
+    }
+
+    .card-button.quiz:hover {
+      background: linear-gradient(135deg, #BB3E03, #CA6702);
+      box-shadow: 0 6px 20px rgba(155, 34, 38, 0.4);
+    }
+
+    .progress-section {
+      background: linear-gradient(135deg, #fff, #f1f8ff);
+      padding: 25px;
+      border-radius: 15px;
+      border: 2px solid #94D2BD;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .progress-title {
+      color: #005F73;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .progress-step {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+      color: #005F73;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin: 0 auto 10px;
+      border: 3px solid #0A9396;
+    }
+
+    .step-title {
+      font-size: 0.9rem;
+      color: #073B4C;
+      font-weight: 600;
+    }
+
+    .molecular-formula {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .molecular-formula::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .molecular-formula h3 {
+      color: white !important;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .molecular-formula .formula {
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-info {
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .footer-info h3 {
+      color: #E9D8A6 !important;
+      margin-bottom: 15px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .footer-info p {
+      opacity: 0.9;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px;
+      }
+
+      .main-title {
+        font-size: 3rem;
+      }
+
+      .learning-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+
+      .progress-steps {
+        flex-wrap: nowrap;
+      }
+
+      .progress-step::after {
+        content: '→';
+        position: absolute;
+        right: -15px;
+        top: 15px;
+        color: #0A9396;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .progress-step:last-child::after {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .learning-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="main-title">Portal dos Aldeídos</h1>
+      <p class="subtitle">Domine a química orgânica de forma interativa e divertida!</p>
+    </header>
+
+    <div class="intro-card">
+      <h2>Vamos aprender!</h2>
+      <p>
+        Explore os aldeídos em uma jornada educacional interativa e progressiva. Aprenda desde a nomenclatura até
+        aplicações práticas, desenvolvendo suas habilidades em química orgânica passo a passo.
+      </p>
+    </div>
+
+    <section class="learning-path">
+      <h2 class="path-title">Escolha seu Caminho</h2>
+
+      <div class="learning-grid">
+        <!-- Card 1: Nomenclatura -->
+        <div class="learning-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Nomenclatura de Aldeídos</div>
+              <div class="card-level">Iniciante</div>
+            </div>
+          </div>
+          <p class="card-description">
+            Aprenda as regras IUPAC para nomenclatura de aldeídos. Domine prefixos, infixos e sufixos
+            para nomear qualquer aldeído corretamente.
+          </p>
+          <ul class="card-features">
+            <li>Regras IUPAC completas</li>
+            <li>Exemplos práticos</li>
+            <li>Prefixos e sufixos</li>
+            <li>Visualização molecular</li>
+          </ul>
+          <a href="nomenclatura.html" target="_blank" class="card-button">Começar Estudo</a>
+        </div>
+
+        <!-- Card 2: Contagem -->
+        <div class="learning-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Contagem de Átomos</div>
+              <div class="card-level">Intermediário</div>
+            </div>
+          </div>
+          <p class="card-description">
+            Desenvolva habilidades para contar átomos e ligações em aldeídos.
+            Aplique a fórmula geral e identifique padrões estruturais.
+          </p>
+          <ul class="card-features">
+            <li>Fórmula C<sub>n</sub>H<sub>2n</sub>O</li>
+            <li>Contagem de ligações</li>
+            <li>Padrões estruturais</li>
+            <li>Exemplos detalhados</li>
+          </ul>
+          <a href="contagem-aldeidos.html" target="_blank" class="card-button">Aprender Contagem</a>
+        </div>
+
+        <!-- Card 3: Quiz Nomenclatura (Em breve) -->
+        <div class="learning-card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Quiz de Nomenclatura</div>
+      <div class="card-level" style="background: linear-gradient(135deg, #9B2226, #BB3E03);">Prática</div>
+    </div>
+  </div>
+  <p class="card-description">
+    Teste seus conhecimentos sobre nomenclatura com desafios interativos.
+    Sistema de pontuação e feedback instantâneo.
+  </p>
+  <ul class="card-features">
+    <li>Desafios progressivos</li>
+    <li>Sistema de pontuação</li>
+    <li>Feedback detalhado</li>
+    <li>Ranking de desempenho</li>
+  </ul>
+  <a target="_blank" href="quiz-nomenclatura.html" class="card-button quiz">Jogar Agora</a>
+</div>
+
+        <!-- Card 4: Quiz Contagem -->
+        <div class="learning-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Quiz de Montagem</div>
+              <div class="card-level" style="background: linear-gradient(135deg, #9B2226, #BB3E03);">Prática</div>
+            </div>
+          </div>
+          <p class="card-description">
+            Jogo interativo onde você monta moléculas de aldeídos arrastando átomos e ligações.
+            Inclui assistente de IA para tirar dúvidas!
+          </p>
+          <ul class="card-features">
+            <li>Montagem molecular</li>
+            <li>Interface drag-and-drop</li>
+            <li>Assistente de IA</li>
+            <li>Desafios variados</li>
+          </ul>
+          <a target="_blank" href="quiz-contagem.html" class="card-button quiz">Jogar Agora</a>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="footer-info">
+      <h3>Dicas para o Sucesso</h3>
+      <div class="dicas">
+        <p> <strong>🎯 Comece pela nomenclatura</strong> para entender a base teórica<br></p>
+        <p> <strong>🔢 Pratique a contagem</strong> para desenvolver intuição estrutural<br></p>
+        <p> <strong>🎮 Use os jogos</strong> para fixar o conhecimento de forma divertida<br></p>
+        <p> <strong>🤖 Aproveite a IA</strong> para esclarecer dúvidas instantaneamente</p>
+      </div>
+
+    </footer>
+  </div>
+
+  <script>
+    // Criar partículas flutuantes
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Efeito de hover nos cards
+    document.querySelectorAll('.learning-card').forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        if (!this.style.cursor === 'not-allowed') {
+          this.style.transform = 'translateY(-8px) scale(1.02)';
+        }
+      });
+
+      card.addEventListener('mouseleave', function () {
+        if (!this.style.cursor === 'not-allowed') {
+          this.style.transform = 'translateY(0) scale(1)';
+        }
+      });
+    });
+
+    // Inicializar quando a página carregar
+    document.addEventListener('DOMContentLoaded', function () {
+      createParticles();
+
+      // Animar entrada dos cards
+      const cards = document.querySelectorAll('.learning-card');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+
+        setTimeout(() => {
+          card.style.transition = 'all 0.6s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+  </script>
+</body>
+
+</html>

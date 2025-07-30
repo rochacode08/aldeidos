@@ -1,0 +1,976 @@
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ body {
+     font-family: 'Roboto', sans-serif;
+     background: linear-gradient(135deg, #0A9396, #94D2BD);
+     color: #073B4C;
+     padding: 15px;
+     line-height: 1.6;
+     min-height: 100vh;
+     overflow-x: hidden;
+     scroll-behavior: smooth;
+ }
+
+ .container {
+     max-width: 100%;
+     margin: 0 auto;
+     background: rgba(255, 255, 255, 0.95);
+     padding: 20px;
+     border-radius: 15px;
+     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+ }
+
+ .header {
+     text-align: center;
+     margin-bottom: 25px;
+     position: relative;
+ }
+
+ .nav-back {
+     position: absolute;
+     left: 0;
+     top: 0;
+     background: rgba(148, 210, 189, 0.2);
+     border: 1px solid #94D2BD;
+     color: #005F73;
+     padding: 8px 16px;
+     border-radius: 20px;
+     cursor: pointer;
+     transition: background 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, height 0.3s ease;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 0.9rem;
+     font-weight: 500;
+ }
+
+ .nav-back:hover {
+     background: #94D2BD;
+     color: white;
+     transform: translateY(-2px);
+ }
+
+ .game-title {
+     font-family: 'Poppins', sans-serif;
+     font-size: 2rem;
+     font-weight: 700;
+     color: #005F73;
+     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+     margin-bottom: 10px;
+ }
+
+ .subtitle {
+     font-size: 1rem;
+     color: #0A9396;
+     font-weight: 400;
+ }
+
+ .instructions {
+     background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+     border-radius: 12px;
+     padding: 20px;
+     margin-bottom: 25px;
+     border-left: 4px solid #0A9396;
+     font-size: 0.95rem;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .game-area {
+     display: grid;
+     grid-template-columns: 1fr;
+     gap: 25px;
+     margin-bottom: 20px;
+ }
+
+ .challenge-panel {
+     background: linear-gradient(135deg, #ffffff, #f8f9fa);
+     border-radius: 15px;
+     padding: 25px;
+     border: 2px solid #E9D8A6;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .challenge-title {
+     font-family: 'Poppins', sans-serif;
+     font-size: 1.3rem;
+     color: #005F73;
+     margin-bottom: 15px;
+     text-align: center;
+     font-weight: 600;
+ }
+
+ .aldehyde-name {
+     font-size: 1.5rem;
+     font-weight: 600;
+     color: #9B2226;
+     background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+     padding: 18px;
+     border-radius: 12px;
+     text-align: center;
+     margin-bottom: 20px;
+     border: 2px solid #E0CC94;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .formula-hint {
+     background: linear-gradient(135deg, #fff, #f1f8ff);
+     padding: 15px;
+     border-radius: 10px;
+     border-left: 4px solid #0A9396;
+     margin-bottom: 20px;
+     position: relative;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .score-board {
+     display: flex;
+     justify-content: space-between;
+     margin-bottom: 20px;
+     gap: 10px;
+ }
+
+ .score-item {
+     background: linear-gradient(135deg, #94D2BD, #B8E6D3);
+     padding: 12px 18px;
+     border-radius: 10px;
+     font-weight: 600;
+     color: #005F73;
+     text-align: center;
+     flex: 1;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .building-area {
+     background: linear-gradient(135deg, #ffffff, #f8f9fa);
+     border-radius: 15px;
+     padding: 25px;
+     border: 2px solid #E9D8A6;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .building-title {
+     font-family: 'Poppins', sans-serif;
+     font-size: 1.2rem;
+     margin-bottom: 20px;
+     color: #005F73;
+     text-align: center;
+     font-weight: 600;
+ }
+
+ .molecule-canvas {
+     background: white;
+     border: 3px dashed #94D2BD;
+     border-radius: 12px;
+     min-height: 200px;
+     position: relative;
+     margin-bottom: 25px;
+     display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+     padding: 20px;
+     transition: background 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, height 0.3s ease;
+     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+     cursor: pointer;
+ }
+
+ .molecule-canvas:hover {
+     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+     border-color: #0A9396;
+ }
+
+ .canvas-hint {
+     color: #94D2BD;
+     font-style: italic;
+     opacity: 0.7;
+     text-align: center;
+     font-size: 0.95rem;
+ }
+
+ .atom-palette {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+     gap: 12px;
+     margin-bottom: 25px;
+     padding: 20px;
+     background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+     border-radius: 15px;
+     border: 2px solid #E0CC94;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .atom {
+     width: 60px;
+     height: 60px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-weight: bold;
+     cursor: pointer;
+     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+     user-select: none;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+     font-size: 18px;
+     position: relative;
+     overflow: hidden;
+ }
+
+ .atom::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: -100%;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+     transition: left 0.6s;
+ }
+
+ .atom:hover {
+     transform: scale(1.1) rotate(5deg);
+     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+ }
+
+ .atom:hover::before {
+     left: 100%;
+ }
+
+ .atom:active {
+     /* transform: scale(0.95); */
+ }
+
+ .bond:active { /* No transform */ }
+
+ .atom.carbon {
+     background: linear-gradient(135deg, #2C3E50, #34495E);
+     color: white;
+     border: 3px solid #ECF0F1;
+ }
+
+ .atom.hydrogen {
+     background: linear-gradient(135deg, #E74C3C, #C0392B);
+     color: white;
+     border: 3px solid #FADBD8;
+ }
+
+ .atom.oxygen {
+     background: linear-gradient(135deg, #3498DB, #2980B9);
+     color: white;
+     border: 3px solid #D6EAF8;
+ }
+
+ .bond {
+     width: 45px;
+     height: 10px;
+     background: linear-gradient(135deg, #34495E, #2C3E50);
+     cursor: pointer;
+     border-radius: 6px;
+     margin: 8px;
+     transition: background 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, height 0.3s ease;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: white;
+     font-weight: bold;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+     font-size: 14px;
+     position: relative;
+     overflow: hidden;
+ }
+
+ .bond::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: -100%;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+     transition: left 0.6s;
+ }
+
+ .bond:hover {
+     background: linear-gradient(135deg, #0A9396, #94D2BD);
+     transform: scale(1.1);
+     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+ }
+
+ .bond:hover::before {
+     left: 100%;
+ }
+
+ .bond.double {
+     height: 14px;
+     background: linear-gradient(to bottom,
+             #34495E 0%,
+             #34495E 35%,
+             transparent 35%,
+             transparent 65%,
+             #34495E 65%,
+             #34495E 100%);
+ }
+
+ .bond.double:hover {
+     background: linear-gradient(to bottom,
+             #0A9396 0%,
+             #0A9396 35%,
+             transparent 35%,
+             transparent 65%,
+             #0A9396 65%,
+             #0A9396 100%);
+ }
+
+ .placed-atom {
+     position: relative;
+     animation: placeAtom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+     cursor: pointer;
+ }
+
+ .placed-atom:hover {
+     transform: scale(1.1);
+     z-index: 10;
+     filter: brightness(1.1);
+ }
+
+ @keyframes placeAtom {
+     0% {
+         transform: scale(0.3) rotate(180deg);
+         opacity: 0;
+     }
+
+     50% {
+         transform: scale(1.1) rotate(90deg);
+         opacity: 0.8;
+     }
+
+     100% {
+         transform: scale(1) rotate(0deg);
+         opacity: 1;
+     }
+ }
+
+ .controls {
+     display: flex;
+     gap: 15px;
+     justify-content: center;
+     flex-wrap: wrap;
+ }
+
+ .btn {
+     padding: 12px 24px;
+     border: none;
+     border-radius: 25px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+     font-family: 'Poppins', sans-serif;
+     font-size: 14px;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+     position: relative;
+     overflow: hidden;
+ }
+
+ .btn::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: -100%;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+     transition: left 0.6s;
+ }
+
+ .btn:hover::before {
+     left: 100%;
+ }
+
+ .btn-primary {
+     background: linear-gradient(135deg, #0A9396, #94D2BD);
+     color: white;
+ }
+
+ .btn-primary:hover {
+     background: linear-gradient(135deg, #94D2BD, #B8E6D3);
+     transform: translateY(-3px);
+     box-shadow: 0 6px 20px rgba(10, 147, 150, 0.4);
+ }
+
+ .btn-secondary {
+     background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+     color: #005F73;
+ }
+
+ .btn-secondary:hover {
+     background: linear-gradient(135deg, #F4E4BC, #FFF2CC);
+     transform: translateY(-3px);
+     box-shadow: 0 6px 20px rgba(233, 216, 166, 0.4);
+ }
+
+ .btn-danger {
+     background: linear-gradient(135deg, #9B2226, #BB3E03);
+     color: white;
+ }
+
+ .btn-danger:hover {
+     background: linear-gradient(135deg, #BB3E03, #CA6702);
+     transform: translateY(-3px);
+     box-shadow: 0 6px 20px rgba(155, 34, 38, 0.4);
+ }
+
+ .btn:active {
+     transform: scale(0.95);
+ }
+
+ .feedback {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     padding: 25px 35px;
+     border-radius: 15px;
+     font-size: 1.2rem;
+     font-weight: 600;
+     z-index: 1000;
+     animation: feedbackPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+     text-align: center;
+     max-width: 90%;
+     backdrop-filter: blur(10px);
+ }
+
+ .feedback.success {
+     background: linear-gradient(135deg, #0A9396, #94D2BD);
+     color: white;
+     border: 2px solid #E9D8A6;
+ }
+
+ .feedback.error {
+     background: linear-gradient(135deg, #9B2226, #BB3E03);
+     color: white;
+     border: 2px solid #FADBD8;
+ }
+
+ @keyframes feedbackPop {
+     0% {
+         transform: translate(-50%, -50%) scale(0.3) rotate(10deg);
+         opacity: 0;
+     }
+
+     50% {
+         transform: translate(-50%, -50%) scale(1.1) rotate(-5deg);
+         opacity: 0.9;
+     }
+
+     100% {
+         transform: translate(-50%, -50%) scale(1) rotate(0deg);
+         opacity: 1;
+     }
+ }
+
+ .progress-indicator {
+     text-align: center;
+     margin-bottom: 20px;
+     font-size: 0.95rem;
+     color: #0A9396;
+     font-weight: 500;
+ }
+
+ .challenge-counter {
+     background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+     padding: 10px 15px;
+     border-radius: 20px;
+     display: inline-block;
+     color: #005F73;
+     font-weight: 600;
+     border: 2px solid #E0CC94;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ /* Floating particles animation */
+ .particles {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+     z-index: -1;
+ }
+
+ .particle {
+     position: absolute;
+     width: 4px;
+     height: 4px;
+     background: rgba(148, 210, 189, 0.6);
+     border-radius: 50%;
+     animation: float 8s infinite linear;
+ }
+
+ @keyframes float {
+     0% {
+         transform: translateY(100vh) rotate(0deg);
+         opacity: 0;
+     }
+
+     10% {
+         opacity: 1;
+     }
+
+     90% {
+         opacity: 1;
+     }
+
+     100% {
+         transform: translateY(-10px) rotate(360deg);
+         opacity: 0;
+     }
+ }
+
+ @media (min-width: 768px) {
+     .container {
+         max-width: 900px;
+         margin: 0 auto;
+         padding: 30px;
+     }
+
+     .game-area {
+         grid-template-columns: 1fr 1.5fr;
+         gap: 30px;
+     }
+
+     .game-title {
+         font-size: 2.5rem;
+     }
+
+     .atom {
+         width: 70px;
+         height: 70px;
+         font-size: 20px;
+     }
+
+     .molecule-canvas {
+         min-height: 300px;
+     }
+
+     .atom-palette {
+         grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+         gap: 15px;
+     }
+ }
+
+ .ai-helper-button-container {
+     text-align: center;
+     margin-top: 20px;
+ }
+
+ .btn-ai {
+     background: linear-gradient(135deg, #005f73, #0a9396);
+     color: white;
+     border: 2px solid #94D2BD;
+ }
+
+ .btn-ai:hover {
+     background: linear-gradient(135deg, #0a9396, #94D2BD);
+     box-shadow: 0 6px 20px rgba(10, 147, 150, 0.4);
+ }
+
+ /* Estilos do Modal (Pop-up) */
+ .modal {
+     display: none;
+     /* Escondido por padrão */
+     position: fixed;
+     z-index: 1000;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     overflow: auto;
+     background-color: rgba(0, 0, 0, 0.6);
+     backdrop-filter: blur(5px);
+     animation: fadeIn 0.3s ease-in-out;
+ }
+
+ @keyframes fadeIn {
+     from {
+         opacity: 0;
+     }
+
+     to {
+         opacity: 1;
+     }
+ }
+
+ .modal-content {
+     background-color: #fefefe;
+     margin: 15% auto;
+     padding: 25px;
+     border: 1px solid #888;
+     width: 90%;
+     max-width: 500px;
+     border-radius: 15px;
+     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+     position: relative;
+     animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+ }
+
+ @keyframes slideIn {
+     from {
+         transform: translateY(-50px);
+         opacity: 0;
+     }
+
+     to {
+         transform: translateY(0);
+         opacity: 1;
+     }
+ }
+
+ .close-button {
+     color: #aaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+     cursor: pointer;
+ }
+
+ .close-button:hover,
+ .close-button:focus {
+     color: black;
+     text-decoration: none;
+ }
+
+ .modal-title {
+     font-family: 'Poppins', sans-serif;
+     color: #005F73;
+     margin-bottom: 15px;
+ }
+
+ #aiForm {
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+     margin-top: 15px;
+ }
+
+ #questionInput {
+     width: 100%;
+     padding: 12px;
+     border: 2px solid #ddd;
+     border-radius: 8px;
+     font-size: 1rem;
+ }
+
+ #askButton {
+     padding: 12px 20px;
+     border: none;
+     border-radius: 8px;
+     background-color: #0A9396;
+     color: white;
+     font-weight: bold;
+     cursor: pointer;
+     transition: background-color 0.3s, transform 0.2s;
+ }
+
+ #askButton:hover {
+     background-color: #005F73;
+ }
+
+ #askButton:disabled {
+     background-color: #ccc;
+     cursor: not-allowed;
+ }
+
+ #askButton.loading {
+     position: relative;
+     color: transparent;
+ }
+
+ #askButton.loading::after {
+     content: '';
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     width: 20px;
+     height: 20px;
+     margin-top: -10px;
+     margin-left: -10px;
+     border: 3px solid rgba(255, 255, 255, 0.2);
+     border-top-color: white;
+     border-radius: 50%;
+     animation: spin 1s linear infinite;
+ }
+
+ @keyframes spin {
+     to {
+         transform: rotate(360deg);
+     }
+ }
+
+ .response-area {
+     margin-top: 20px;
+     padding: 15px;
+     background-color: #f9f9f9;
+     border-radius: 8px;
+     border: 1px solid #eee;
+     max-height: 200px;
+     overflow-y: auto;
+ }
+
+ .response-area.hidden {
+     display: none;
+ }
+
+ .response-content strong {
+     color: #005F73;
+ }
+
+ .response-content ul,
+ .response-content ol {
+     padding-left: 20px;
+ }
+
+ .completion-message {
+  background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+  padding: 40px 20px;
+  border-radius: 15px;
+  text-align: center;
+  border: 4px solid #0A9396;
+  grid-column: 1 / -1; /* Faz ocupar toda a largura da área do jogo */
+}
+
+.completion-message h2 {
+  color: #005F73;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.completion-message p {
+  font-size: 1.2rem;
+  color: #073B4C;
+  margin-bottom: 20px;
+}
+
+.completion-message .btn {
+  margin-top: 20px;
+}
+
+/* Estilo para item selecionado */
+.item-selected {
+  transform: scale(1.15) !important; 
+  box-shadow: 0 0 20px #0A9396 !important;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 20px #0A9396;
+  }
+  50% {
+    box-shadow: 0 0 30px #0A9396, 0 0 40px #94D2BD;
+  }
+  100% {
+    box-shadow: 0 0 20px #0A9396;
+  }
+}
+
+/* Adicionar estilos para a pré-visualização */
+.structural-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.atom-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.atom-preview.carbon {
+  background: #2C3E50;
+  color: white;
+}
+
+.atom-preview.hydrogen {
+  background: #E74C3C;
+  color: white;
+}
+
+.atom-preview.oxygen {
+  background: #3498DB;
+  color: white;
+}
+
+.bond-preview {
+  width: 30px;
+  height: 8px;
+  background: #34495E;
+  border-radius: 3px;
+}
+
+.bond-preview.double {
+  height: 15px;
+  background: linear-gradient(to bottom, 
+    #34495E 0%, 
+    #34495E 35%, 
+    transparent 35%, 
+    transparent 65%, 
+    #34495E 65%, 
+    #34495E 100%);
+}
+
+/* Estilos para a imagem da fórmula estrutural */
+.formula-image-container {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 15px;
+  padding: 25px;
+  margin: 20px 0;
+  border: 2px solid #0A9396;
+  box-shadow: 0 4px 20px rgba(10, 147, 150, 0.2);
+  text-align: center;
+  animation: slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.formula-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  color: #005F73;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.formula-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
+  border: 3px solid #E9D8A6;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+  padding: 15px;
+}
+
+.formula-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(10, 147, 150, 0.3);
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  .formula-image-container {
+    margin: 15px 0;
+    padding: 20px;
+  }
+  
+  .formula-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .formula-image {
+    max-height: 200px;
+    padding: 10px;
+  }
+}
+
+
+
+/* Estilos para a imagem da fórmula estrutural */
+.formula-image-container {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 15px;
+  padding: 25px;
+  margin: 20px 0;
+  border: 2px solid #0A9396;
+  box-shadow: 0 4px 20px rgba(10, 147, 150, 0.2);
+  text-align: center;
+  animation: slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.formula-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  color: #005F73;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.formula-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
+  border: 3px solid #E9D8A6;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+  padding: 15px;
+}
+
+.formula-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(10, 147, 150, 0.3);
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  .formula-image-container {
+    margin: 15px 0;
+    padding: 20px;
+  }
+  
+  .formula-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .formula-image {
+    max-height: 200px;
+    padding: 10px;
+  }
+}
+

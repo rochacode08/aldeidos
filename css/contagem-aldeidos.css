@@ -1,0 +1,390 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      color: #073B4C;
+      padding: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      color: #005F73;
+      text-align: center;
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.2rem;
+    }
+
+    h2 {
+      color: #005F73;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #0A9396;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    h3 {
+      color: #9B2226;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .intro {
+      background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      border-left: 4px solid #0A9396;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 210, 189, 0.3);
+    }
+
+    .formula-general {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .formula-general::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .formula-general h3 {
+      color: white !important;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .formula-general p {
+      font-size: 1.8rem;
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+      position: relative;
+      z-index: 2;
+    }
+
+    .aldehydes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .aldehyde-card {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-radius: 15px;
+      padding: 25px;
+      border: 3px solid #E9D8A6;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .aldehyde-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(148, 210, 189, 0.2), transparent);
+      transition: left 0.8s;
+    }
+
+    .aldehyde-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border-color: #0A9396;
+    }
+
+    .aldehyde-card:hover::before {
+      left: 100%;
+    }
+
+    .aldehyde-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #005F73;
+      margin-bottom: 15px;
+      text-align: center;
+      background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+      padding: 10px;
+      border-radius: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .structural-formula {
+      font-family: 'Courier New', monospace;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-align: center;
+      color: #e74c3c;
+      background: rgba(231, 76, 60, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      border: 2px dashed #e74c3c;
+      position: relative;
+      z-index: 2;
+    }
+
+    .count-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .count-item {
+      background: linear-gradient(135deg, #94D2BD, #B8E6D3);
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      color: #005F73;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .count-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .count-label {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-bottom: 5px;
+    }
+
+    .count-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .method-section {
+      background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+      padding: 25px;
+      border-radius: 15px;
+      margin: 25px 0;
+      border-left: 4px solid #f39c12;
+      position: relative;
+    }
+
+    .method-section::after {
+      content: '📝';
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+    }
+
+    .method-title {
+      color: #f39c12;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .method-steps {
+      list-style: none;
+      padding: 0;
+    }
+
+    .method-steps li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(243, 156, 18, 0.2);
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .method-steps li:before {
+      content: counter(step-counter);
+      counter-increment: step-counter;
+      position: absolute;
+      left: 0;
+      top: 10px;
+      background: #f39c12;
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .method-steps {
+      counter-reset: step-counter;
+    }
+
+    .interactive-section {
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      padding: 30px 20px;
+      border-radius: 15px;
+      margin-top: 25px;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .interactive-title {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: #E9D8A6;
+      position: relative;
+      z-index: 2;
+    }
+
+    .interactive-description {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      opacity: 0.9;
+      position: relative;
+      z-index: 2;
+    }
+
+    .practice-button {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #E9D8A6, #F4E4BC);
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #005F73;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(233, 216, 166, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    .practice-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(233, 216, 166, 0.6);
+    }
+
+    .practice-button:active {
+      transform: scale(0.95);
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(148, 210, 189, 0.6);
+      border-radius: 50%;
+      animation: float 6s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+      }
+
+      .aldehydes-grid {
+        gap: 25px;
+      }
+
+      .count-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dê um Nome ao Aldeído!</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/quiz-nomenclatura.css">
+  <style>
+    /* Estilos para o modal da IA */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 30px;
+      border: none;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-button {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .modal-title {
+      color: #005F73;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .modal p {
+      color: #073B4C;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #aiForm {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    #questionInput {
+      flex: 1;
+      padding: 12px 15px;
+      border: 2px solid #94D2BD;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #questionInput:focus {
+      outline: none;
+      border-color: #0A9396;
+      box-shadow: 0 0 0 3px rgba(10, 147, 150, 0.1);
+    }
+
+    #askButton {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      min-width: 100px;
+    }
+
+    #askButton:hover {
+      background: linear-gradient(135deg, #94D2BD, #B8E6D3);
+      transform: translateY(-2px);
+    }
+
+    #askButton:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #askButton.loading {
+      position: relative;
+    }
+
+    #askButton.loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      margin: auto;
+      border: 2px solid transparent;
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .response-area {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      border-left: 4px solid #0A9396;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .response-area.hidden {
+      display: none;
+    }
+
+    .response-content {
+      color: #073B4C;
+      line-height: 1.6;
+    }
+
+    .response-content h1, .response-content h2, .response-content h3 {
+      color: #005F73;
+      margin-top: 0;
+    }
+
+    .response-content strong {
+      color: #0A9396;
+    }
+
+    .response-content code {
+      background: #e9ecef;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .ai-helper-button-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .btn-ai {
+      background: linear-gradient(135deg, #0A9396, #94D2BD);
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(10, 147, 150, 0.3);
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-ai:hover {
+      background: linear-gradient(135deg, #94D2BD, #B8E6D3);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(10, 147, 150, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        width: 95%;
+      }
+
+      #aiForm {
+        flex-direction: column;
+      }
+
+      .ai-helper-button-container {
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .btn-ai {
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="game-title">🧪 Dê um Nome ao Aldeído!</h1>
+      <p class="subtitle">Identifique a estrutura e digite o nome correto do composto</p>
+    </div>
+
+    <div class="instructions">
+      <strong>📌 Regras para nomear aldeídos:</strong><br>
+      • O grupo funcional é o <strong>–CHO</strong> (sempre no carbono 1)<br>
+      • A cadeia principal deve ser a <strong>mais longa que contenha o –CHO</strong><br>
+      • O nome sempre termina com <strong>"-al"</strong><br>
+      • Para ligações duplas: use <strong>"-en-"</strong> (ex: propenal)<br>
+      • Para ligações triplas: use <strong>"-in-"</strong> (ex: propinal)<br>
+      • Para posições específicas: use números (ex: but-2-enal)<br>
+      • Digite a resposta em <strong>letras minúsculas, sem acento e sem espaços</strong><br>
+      <strong>💡 Exemplo:</strong> Para CH₃–CH₂–CHO, digite: <em>propanal</em>
+    </div>
+
+    <div class="game-area">
+      <div class="challenge-panel">
+        <h2 class="challenge-title">🎯 Desafio Atual</h2>
+        
+        <div class="progress-indicator">
+          <span class="challenge-counter" id="challengeCounter">Desafio 1 de 8</span>
+        </div>
+
+        <div class="score-board">
+          <div class="score-item">
+            <strong>Pontos:</strong> <span id="score">0</span>
+          </div>
+          <div class="score-item">
+            <strong>Acertos:</strong> <span id="correct">0</span>
+          </div>
+        </div>
+
+        <div class="structure-display">
+          <div class="molecule-structure" id="moleculeStructure">
+            CH₃–CH₂–CHO
+          </div>
+        </div>
+
+        <div class="hint-box">
+          <strong>💡 Dica:</strong> <span id="currentHint">Este aldeído tem 3 carbonos na cadeia principal.</span>
+        </div>
+      </div>
+
+      <div class="answer-section">
+        <h3 class="answer-title">📝 Digite o Nome do Aldeído</h3>
+        
+        <div class="input-container">
+          <input 
+            type="text" 
+            class="answer-input" 
+            id="answerInput" 
+            placeholder="Digite aqui"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-primary" onclick="checkAnswer()">
+            Verificar Resposta ✅
+          </button>
+          <button class="btn btn-secondary" onclick="showHint()">
+            Mostrar Dica 💡
+          </button>
+          <button class="btn btn-danger" onclick="skipChallenge()">
+            Pular Desafio ⏭
+          </button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+  <script src="js/quiz-nomenclatura.js"></script>
+
+</body>
+
+</html>
+

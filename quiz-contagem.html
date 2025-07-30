@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz contagem de aldeídos</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/quiz-contagem.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="game-title">Aldeído Atômico</h1>
+      <p class="subtitle">Monte a fórmula molecular ou estrutural dos aldeídos!</p>
+    </div>
+
+    <div class="instructions">
+      <strong>Como jogar:</strong> Clique nos átomos (C, H, O) e ligações da paleta para selecioná-los, depois clique na área de construção para adicioná-los. Lembre-se: aldeídos sempre têm o grupo funcional -CHO!
+
+      <strong>Lembre-se: C<sub>n</sub>H<sub>2n</sub>O</strong> Onde o n será seu número de carbonos.
+    </div>
+
+    <div class="game-area">
+      <div class="challenge-panel">
+        <h2 class="challenge-title">🎯 Desafio Atual</h2>
+        <div class="aldehyde-name" id="aldehydeName">Carregando...</div>
+
+        <div class="formula-hint">
+          <strong>💡 Dica:</strong> <span id="hint">Monte o grupo funcional -CHO primeiro!</span>
+        </div>
+
+        <div class="score-board">
+          <div class="score-item">
+            <strong>Pontos:</strong> <span id="score">0</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-danger" onclick="clearCanvas()">
+            Limpar 🗑
+          </button>
+        </div>
+      </div>
+
+      <div class="building-area">
+        <h3 class="building-title">🔬 Área de Construção</h3>
+
+        <div class="molecule-canvas" id="moleculeCanvas" onclick="addSelectedItem(event)">
+          <p style="color: #94D2BD; font-style: italic; opacity: 0.7;">Clique aqui para adicionar o item selecionado</p>
+        </div>
+
+        <div class="atom-palette">
+          <div class="atom carbon" onclick="selectItem(this)" data-atom="C">C</div>
+          <div class="atom hydrogen" onclick="selectItem(this)" data-atom="H">H</div>
+          <div class="atom oxygen" onclick="selectItem(this)" data-atom="O">O</div>
+          <div class="bond" onclick="selectItem(this)" data-bond="single">—</div>
+          <div class="bond double" onclick="selectItem(this)" data-bond="double">=</div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-primary" onclick="checkAnswer()">
+            Verificar Resposta ✅
+          </button>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Botão para abrir o pop-up da IA -->
+    <div class="ai-helper-button-container">
+      <button id="openAiModalBtn" class="btn btn-ai">🤖 Ajuda da IA</button>
+    </div>
+  </div>
+
+
+  <!-- Pop-up (Modal) da IA -->
+  <div id="aiModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2 class="modal-title">Assistente de Química</h2>
+      <p>Tem alguma dúvida sobre aldeídos? Pergunte!</p>
+
+      <form id="aiForm">
+        <input id="questionInput" type="text" placeholder="Ex: O que é o grupo funcional de um aldeído?" required>
+        <button id="askButton" type="submit">Perguntar</button>
+      </form>
+
+      <div id="aiResponse" class="response-area hidden">
+        <div class="response-content">
+          <!-- A resposta da IA aparecerá aqui -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+  <script src="js/quiz-contagem.js"></script>
+
+</body>
+
+</html>
+
