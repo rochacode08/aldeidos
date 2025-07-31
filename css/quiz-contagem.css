@@ -564,22 +564,6 @@
      }
  }
 
- .ai-helper-button-container {
-     text-align: center;
-     margin-top: 20px;
- }
-
- .btn-ai {
-     background: linear-gradient(135deg, #005f73, #0a9396);
-     color: white;
-     border: 2px solid #94D2BD;
- }
-
- .btn-ai:hover {
-     background: linear-gradient(135deg, #0a9396, #94D2BD);
-     box-shadow: 0 6px 20px rgba(10, 147, 150, 0.4);
- }
-
  /* Estilos do Modal (Pop-up) */
  .modal {
      display: none;
@@ -649,13 +633,6 @@
      font-family: 'Poppins', sans-serif;
      color: #005F73;
      margin-bottom: 15px;
- }
-
- #aiForm {
-     display: flex;
-     flex-direction: column;
-     gap: 15px;
-     margin-top: 15px;
  }
 
  #questionInput {
