@@ -86,14 +86,6 @@
       position: relative;
     }
 
-    .nomenclatura-intro::after {
-      content: '📚';
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-    }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -219,14 +211,6 @@
       margin-top: 15px;
       position: relative;
       overflow: hidden;
-    }
-
-    .example::after {
-      content: '💡';
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
     }
 
     .example p {
