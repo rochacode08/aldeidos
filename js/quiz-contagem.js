@@ -11,6 +11,11 @@ let currentChallengeIndex = 0;
 let score = 0;
 let selectedItem = null;
 
+// Variáveis para suporte touch
+let isDragging = false;
+let dragElement = null;
+let touchOffset = { x: 0, y: 0 };
+
 function loadChallenge() {
   const challenge = aldeidoss[currentChallengeIndex];
   document.getElementById('aldehydeName').textContent = challenge.name;
@@ -85,6 +90,119 @@ function addSelectedItem(event) {
 
   canvas.appendChild(newElement);
   clearSelection();
+}
+
+// Nova função para adicionar item em posição específica (touch)
+function addSelectedItemAtPosition(x, y) {
+  if (!selectedItem) {
+    showFeedback('Selecione um item da paleta primeiro!', 'error');
+    return;
+  }
+
+  const canvas = document.getElementById('moleculeCanvas');
+  if (canvas.querySelector('p')) canvas.innerHTML = '';
+
+  const newElement = document.createElement('div');
+  newElement.className = selectedItem.className + ' placed-atom';
+  newElement.dataset.type = selectedItem.type;
+  newElement.dataset.value = selectedItem.value;
+  newElement.textContent = selectedItem.value === 'double' ? '=' : (selectedItem.value === 'single' ? '—' : selectedItem.value);
+  
+  // Posicionar elemento
+  newElement.style.position = 'absolute';
+  newElement.style.left = Math.max(0, Math.min(x - 30, canvas.offsetWidth - 60)) + 'px';
+  newElement.style.top = Math.max(0, Math.min(y - 30, canvas.offsetHeight - 60)) + 'px';
+  
+  newElement.onclick = (e) => {
+    e.stopPropagation();
+    newElement.remove();
+    updateCanvasMessage();
+  };
+
+  canvas.appendChild(newElement);
+  clearSelection();
+}
+
+// Função para iniciar o arraste (touch)
+function startDrag(element, event) {
+  if (event.type === 'touchstart') {
+    event.preventDefault();
+    const touch = event.touches[0];
+    isDragging = true;
+    dragElement = element.cloneNode(true);
+    
+    // Calcular offset do toque
+    const rect = element.getBoundingClientRect();
+    touchOffset.x = touch.clientX - rect.left;
+    touchOffset.y = touch.clientY - rect.top;
+    
+    // Estilizar elemento sendo arrastado
+    dragElement.style.position = 'fixed';
+    dragElement.style.zIndex = '9999';
+    dragElement.style.pointerEvents = 'none';
+    dragElement.style.opacity = '0.8';
+    dragElement.style.transform = 'scale(1.1)';
+    dragElement.style.left = (touch.clientX - touchOffset.x) + 'px';
+    dragElement.style.top = (touch.clientY - touchOffset.y) + 'px';
+    
+    document.body.appendChild(dragElement);
+    
+    // Selecionar o item original se não estiver selecionado
+    if (!element.classList.contains('item-selected')) {
+      selectItem(element);
+    }
+  }
+}
+
+// Função para mover durante o arraste
+function moveDrag(event) {
+  if (!isDragging || !dragElement) return;
+  
+  event.preventDefault();
+  const touch = event.touches[0];
+  
+  dragElement.style.left = (touch.clientX - touchOffset.x) + 'px';
+  dragElement.style.top = (touch.clientY - touchOffset.y) + 'px';
+  
+  // Verificar se está sobre a área de construção
+  const canvas = document.getElementById('moleculeCanvas');
+  const canvasRect = canvas.getBoundingClientRect();
+  
+  if (touch.clientX >= canvasRect.left && 
+      touch.clientX <= canvasRect.right && 
+      touch.clientY >= canvasRect.top && 
+      touch.clientY <= canvasRect.bottom) {
+    canvas.classList.add('drag-over');
+  } else {
+    canvas.classList.remove('drag-over');
+  }
+}
+
+// Função para finalizar o arraste
+function endDrag(event) {
+  if (!isDragging || !dragElement) return;
+  
+  event.preventDefault();
+  const touch = event.changedTouches[0];
+  
+  // Remover elemento visual do arraste
+  document.body.removeChild(dragElement);
+  
+  // Verificar se foi solto na área de construção
+  const canvas = document.getElementById('moleculeCanvas');
+  const canvasRect = canvas.getBoundingClientRect();
+  
+  if (touch.clientX >= canvasRect.left && 
+      touch.clientX <= canvasRect.right && 
+      touch.clientY >= canvasRect.top && 
+      touch.clientY <= canvasRect.bottom) {
+    // Adicionar o item na posição específica
+    addSelectedItemAtPosition(touch.clientX - canvasRect.left, touch.clientY - canvasRect.top);
+  }
+  
+  canvas.classList.remove('drag-over');
+  isDragging = false;
+  dragElement = null;
 }
 
 function clearCanvas() {
@@ -209,7 +327,21 @@ function nextChallenge() {
   }
 }
 
-window.onload = loadChallenge;
+// Modificação da função window.onload para incluir eventos touch
+window.onload = function() {
+  loadChallenge();
+  
+  // Adicionar eventos touch globais
+  document.addEventListener('touchmove', moveDrag, { passive: false });
+  document.addEventListener('touchend', endDrag, { passive: false });
+  
+  // Adicionar eventos touch para todos os elementos da paleta
+  document.querySelectorAll('.atom, .bond').forEach(element => {
+    element.addEventListener('touchstart', (e) => {
+      startDrag(element, e);
+    }, { passive: false });
+  });
+};
 
 // --- CÓDIGO DO ASSISTENTE DE IA CORRIGIDO ---
 const GEMINI_API_KEY = "AIzaSyDLWuGITQ2weE9jauEBZkTOFwKSH31V1h4";
@@ -401,4 +533,3 @@ Aqui está a pergunta do usuário: ${question}
     });
   }
 });
-
